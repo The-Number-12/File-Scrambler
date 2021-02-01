@@ -1,5 +1,5 @@
 #this program is used to encrypt and decrypt files
-#If you want to use this program please read the ReadMe first as you can mess up your files
+#If you want to use this program please read the ReadMe first
 import sys, os
 from cryptography.fernet import Fernet
 import base64
