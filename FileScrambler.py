@@ -1,5 +1,5 @@
 #this program is used to encrypt and decrypt files
-#If you want to use this program please read the ReadMe first
+#If you want to use this program please read the ReadMe first as you can mess up your files if you misuse it 
 import sys, os
 from cryptography.fernet import Fernet
 import base64
@@ -13,7 +13,7 @@ pathname = os.path.dirname(sys.argv[0])+ '\\'
 
 def SetPassword():
     pWord = input("Enter what you would like your password to be, Pick somthing long, that you will remember:")
-    if pWord == input("Congerm your password:"):
+    if pWord == input("Conferm your password:"):
         tempKey = SaltPassword(pWord)
         pasFile = open ("password.txt","wb+")
         pasFile.write(tempKey)
@@ -25,7 +25,6 @@ def SetPassword():
         SetPassword()
 
 # the only reason that i am wasting time salting the p-Word is to waste peoples time if they try to use dictonary attacks
-# reading this wastes your time 
 def SaltPassword(passwordString):
     
     password = passwordString.encode() 
@@ -46,7 +45,7 @@ def DecryptFile(filey, decKey):
             f.close()
 
     except:
-       print("Key BAd? Unsuccessfully decrypted")
+       print("Key wrong? Unsuccessfully decrypted")
 
 def EncryptFile(filey, encKey):
     with open(filey, 'rb+') as f:
@@ -67,7 +66,7 @@ def LoopThroughFiles(path, encKey, encryptState):
         for entry in entries:
             if entry.is_dir():
                 LoopThroughFiles(path + entry.name + '\\',encKey,encryptState)
-            # string matching is a really slow way to do this, try not to get upset about it
+            # string matching is a really slow way to do this, i might want to fix this later
             elif (entry.name != 'FileScrambler.py' and entry.name !='trackEncryptionState.txt' ):
                
                 if encryptState == 0:
@@ -95,7 +94,6 @@ def AttemptEncrypt():
     isEncryptedFile.close()
 
 def StartDecrypt():
-    #decrypt sh!+
     decKey = SaltPassword(input("Enter your password: "))
     print(decKey)
     LoopThroughFiles(pathname,decKey,1)
